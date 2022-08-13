@@ -36,24 +36,37 @@ Only one valid answer exists.
 Follow-up: Can you come up with an algorithm that is less than O(n2) time complexity?
 */
 
-import java.util.HashMap;
+import java.util.*;
 
 
 public class TwoSum {
 
     public static int[] twoSum(int[] nums, int target) {
-        int[] result = new int[2];
-        HashMap<Integer, Integer> map = new HashMap<>();
-        for (int i = 0; i < nums.length; i++) {
-            int differnece = target -  nums[i];
-            if(map.containsKey(differnece)){
-                result[0]=i;
-                result[1]= map.get(differnece);
-                return result;
-            }
-            map.put(nums[i], i);
+
+        Map<Integer, Integer> numToIndex = new HashMap<>();
+
+        for (int i = 0; i < nums.length; ++i) {
+            if (numToIndex.containsKey(target - nums[i]))
+                return new int[] {numToIndex.get(target - nums[i]), i};
+            numToIndex.put(nums[i], i);
         }
-        return result;
+
+        throw new IllegalArgumentException();
     }
 
+
+    public static void main(String[] args) {
+
+        Scanner input = new Scanner(System.in);
+        int[] numbers = new int[5];
+        for (int i = 0; i < 5; i++) {
+            System.out.println("Please enter number");
+            numbers[i]= input.nextInt();
+        }
+        System.out.println("Please enter the target number");
+        Scanner input2 = new Scanner(System.in);
+        Integer target = input2.nextInt();
+
+        System.out.println("result: " + Arrays.toString(twoSum(numbers,target)));
+    }
 }
